@@ -3,6 +3,7 @@ package com.hotelsbook.hotel.services;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.core.ParameterizedTypeReference;
@@ -20,7 +21,8 @@ public class HotelReviewClient {
 	
 	@Value("${microservice.reviews.url}")
 	private String reviewsUrl;
-		
+	
+	@Autowired
 	public HotelReviewClient( RestTemplateBuilder templateBuilder ) {
 		this.restTemplate = templateBuilder.build();
 		

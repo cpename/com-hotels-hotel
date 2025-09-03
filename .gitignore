@@ -3,6 +3,9 @@ target/
 .mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+hotelsHotel.*.gz
+src/main/resources/META-INF/
+src/main/resources/static/
 
 ### STS ###
 .apt_generated

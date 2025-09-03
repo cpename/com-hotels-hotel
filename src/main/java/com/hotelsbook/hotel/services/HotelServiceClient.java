@@ -3,6 +3,7 @@ package com.hotelsbook.hotel.services;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.core.ParameterizedTypeReference;
@@ -16,12 +17,13 @@ import com.hotelsbook.hotel.services.IServices.IHotelServiceClient;
 
 @Service
 public class HotelServiceClient implements IHotelServiceClient {
-		
+	
 	private final RestTemplate restTemplate;
 	
 	@Value("${microservice.services.url}")
 	private String servicesUrl;
 	
+	@Autowired
 	public HotelServiceClient( RestTemplateBuilder templateBuilder ) {
 		this.restTemplate = templateBuilder.build();
 	}

@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,6 +33,10 @@ public class HotelService {
 	
 	@Autowired
 	private HotelReviewClient hotelReviewClient;
+	
+	@Value("${server.url}")
+	private String serverUrl;
+	
 	
 	@Transactional
 	public List<HotelAvailableDto> getAvailableHotelsWithServicesAndREviews( Date startDate, Date endDate, Integer cityId ){
@@ -62,7 +67,9 @@ public class HotelService {
 //			Agrupar y mapear los resultados
 			
 			return hotelSearchBycityDtos.stream().map(hotelAvailable -> {
-				HotelAvailableDto hotelAvailableDto = new HotelAvailableDto();
+				String imgeUrl = serverUrl + "/images/" + hotelAvailable.getPicture();
+				hotelAvailable.setPicture(imgeUrl);
+				HotelAvailableDto hotelAvailableDto = new HotelAvailableDto();				
 				hotelAvailableDto.setHotelSearchBycityDto(hotelAvailable);
 				hotelAvailableDto.setServices(servicesByHotelId.getOrDefault(hotelAvailable.getId(), Collections.emptyList() ));
 				hotelAvailableDto.setAverageCalification( reviewsByHotelId.getOrDefault(hotelAvailable.getId(), null));
