@@ -4,6 +4,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 hotelsHotel.*.gz
+hotelsHotel.txt
 src/main/resources/META-INF/
 src/main/resources/static/
 
