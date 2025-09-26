@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.hotelsbook.hotel.DTOs.HotelCityDto;
 import com.hotelsbook.hotel.DTOs.HotelSearchBycityDto;
 import com.hotelsbook.hotel.domain.HotelEntity;
 
@@ -16,9 +17,11 @@ public interface HotelRepository extends JpaRepository<HotelEntity, Long> {
 	
 	@Procedure(name = "HotelsByCity")
 	public List<HotelSearchBycityDto> findAvailableHotelsByCity(
-			@Param("start_date") Date startDate ,
+			@Param("start_date") Date startDate,
 			@Param("end_date") Date endDate, 
 			@Param("city_id") Integer cityId 
 	);
+	
+ 
 
 }

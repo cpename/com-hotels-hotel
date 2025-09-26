@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hotelsbook.hotel.DTOs.HotelAvailableDto;
+import com.hotelsbook.hotel.DTOs.HotelCityDto;
 import com.hotelsbook.hotel.exceptions.ErrorResponse;
 import com.hotelsbook.hotel.services.HotelService;
 
@@ -53,9 +54,16 @@ public class HotelController {
 			e.printStackTrace();
 			ErrorResponse error = new ErrorResponse(500, "Error interno del servidor");
 			return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+		}		
 		
 		
+	}
+	
+	@GetMapping("/cities")
+	public ResponseEntity<List<HotelCityDto>> getHotelCities(){
+		List<HotelCityDto> cities =  hotelService.getHotelCities();
+		
+		return  ResponseEntity.ok(cities);
 	}
 
 }

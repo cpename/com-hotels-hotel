@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,18 +16,25 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.hotelsbook.hotel.DTOs.HotelAvailableDto;
+import com.hotelsbook.hotel.DTOs.HotelCityDto;
 import com.hotelsbook.hotel.DTOs.HotelSearchBycityDto;
 import com.hotelsbook.hotel.DTOs.HotelServicesResponseDTO;
 import com.hotelsbook.hotel.DTOs.ReviewsByHotelsDto;
 import com.hotelsbook.hotel.DTOs.ServiceDto;
+import com.hotelsbook.hotel.domain.City;
+import com.hotelsbook.hotel.exceptions.HotelExcetion;
+import com.hotelsbook.hotel.repository.CityRepository;
 import com.hotelsbook.hotel.repository.HotelRepository;
+import com.hotelsbook.hotel.services.IServices.IHotelService;
 
 
 @Service
-public class HotelService {
+public class HotelService implements IHotelService {
 	
 	@Autowired
 	private HotelRepository hotelRepository;
+	@Autowired
+	private CityRepository cityRepository;
 	
 	@Autowired
 	private HotelServiceClient hotelServiceClient;
@@ -80,6 +88,21 @@ public class HotelService {
 			
 		}
 		
+		
+		
+	}
+
+
+	@Override
+	public List<HotelCityDto> getHotelCities() {
+		List<City> cities = cityRepository.findAll();
+		
+		if(cities.isEmpty()) {
+			return Collections.emptyList();
+		}
+				
+		return cities.stream()
+				.map(cityEntiy -> new HotelCityDto( cityEntiy.getId(), cityEntiy.getName() ) ).collect(Collectors.toList());
 	}
 	
 
